@@ -2,8 +2,10 @@ package com.yws.handlers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/springmvc")
 @Controller
@@ -69,27 +71,72 @@ public class SpringMVCTest {
 		return SUCCESS;
 	}
 	
-	@RequestMapping(value = "rest/{id}", method = RequestMethod.GET)
-	public String testRest1(@PathVariable Integer id) {
+	
+	/**
+	 * Rest风格的URL
+	 * 以CRUD为例：
+	 * 新增： /order  POST  
+	 * 修改：/order/1 PUT    update?id=1
+	 * 获取：/order/1 GET    get?id=1
+	 * 删除：/order/1 DELETE delete?id=1
+	 * 
+	 * 如何发送PUT请求和DELETE请求?
+	 * 1.需要配置HiddenHttpMethodFilter
+	 * 2.需要发送POST请求
+	 * 3.需要在发送POST请求时携带一个name="_method"的隐藏域，值为DELETE或PUT
+	 * 
+	 * 在SpringMVC的目标方法中如何得到id呢？
+	 * 使用 @PathVariable 注解
+	 */
+	@RequestMapping(value = "/rest/{id}", method = RequestMethod.GET)
+	public String testRest(@PathVariable Integer id) {
 		System.out.println("testRest:get请求" + id);
 		return SUCCESS;
 	}
 	
-	@RequestMapping(value = "rest", method = RequestMethod.POST)
-	public String testRest2() {
+	@RequestMapping(value = "/rest", method = RequestMethod.POST)
+	public String testRestPost() {
 		System.out.println("testRest:post请求");
 		return SUCCESS;
 	}
 	
-	@RequestMapping(value = "rest/{id}", method = RequestMethod.PUT)
-	public String testRest3(@PathVariable Integer id) {
+	@RequestMapping(value = "/rest/{id}", method = RequestMethod.PUT)
+	public String testRestPut(@PathVariable Integer id) {
 		System.out.println("testRest:put请求" + id);
 		return "redirect:/success.jsp";
 	}
 	
-	@RequestMapping(value = "rest/{id}", method = RequestMethod.DELETE)
-	public String testRest4(@PathVariable Integer id) {
+	@RequestMapping(value = "/rest/{id}", method = RequestMethod.DELETE)
+	public String testRestDelete(@PathVariable Integer id) {
 		System.out.println("testRest:delete请求" + id);
 		return "redirect:/success.jsp";
+	}
+	
+	
+	/**
+	 * @RequestParam 来映射请求参数
+	 * value 值即请求参数的参数名
+	 * required 该参数是否必须。 默认为true
+	 * defaultValue 请求参数的默认值
+	 * @param username
+	 * @param age
+	 * @return
+	 */
+	@RequestMapping(value = "/testRequestParam")
+	public String testRequestParam(@RequestParam(value = "username") String username, @RequestParam(value = "age", required = false) Integer age) {
+		System.out.println("testRequestParam: username：" + username + ",age:" + age);
+		return SUCCESS;
+	}
+	
+	/**
+	 * 映射请求头信息（了解）
+	 * 用法同 @RequestParam
+	 * @param al
+	 * @return
+	 */
+	@RequestMapping(value = "/testRequestHeader")
+	public String testRequestHeader(@RequestHeader(value = "Accept-Language") String al) {
+		System.out.println("testRequestHeader，Accept-Language："+ al);
+		return SUCCESS;
 	}
 }
