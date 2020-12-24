@@ -1,5 +1,8 @@
 package com.yws.handlers;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -172,9 +175,28 @@ public class SpringMVCTest {
 		
 	}
 	
+	/**
+	 * 可以使用Servelt 原生的API 作为目标方法的参数
+	 * 具体支持以下类型
+	 * HttpServletRequest 
+	 * HttpServletResponse
+	 * HttpSession 
+	 * java.security.Principal 
+	 * Locale 
+	 * InputStream 
+	 * OutputStream 
+	 * Reader
+	 * Writer
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
 	@RequestMapping(value = "testServletAPI")
-	public String testServletAPI(HttpServletRequest request, HttpServletResponse response) {
+	public void testServletAPI(HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
 		System.out.println("testServletAPI: " + request + "," + response);
-		return SUCCESS;
+		out.write("hello,springMVC");
+		//return SUCCESS;
 	}
 }
