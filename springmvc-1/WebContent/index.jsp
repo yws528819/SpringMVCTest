@@ -7,6 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a href="springmvc/testServletAPI">testServletAPI</a> <br/><br/>
+
+	<form action="springmvc/testPojo" method="post">
+		username: <input type="text" name="username" /><br>
+		password: <input type="password" name="password" /><br>
+		email: <input type="text" name="email" /><br>
+		age: <input type="text" name="age" /><br>
+		city: <input type="text" name="address.city" /><br>
+		provice: <input type="text" name="address.province" /><br>
+		<input type="submit" value="submmit" />
+	</form>
+	<br/>
+
+	<a href="springmvc/testCookieValue">testCookieValue</a> <br/><br/>
+	
 	<a href="springmvc/testRequestHeader">testRequestHeader</a> <br/><br/>
 	
 	<a href="springmvc/testRequestParam?username=admin&age=12">testRequestParam</a> <br/><br/>

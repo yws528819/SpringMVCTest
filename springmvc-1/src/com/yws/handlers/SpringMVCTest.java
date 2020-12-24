@@ -1,11 +1,18 @@
 package com.yws.handlers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.yws.enties.User;
 
 @RequestMapping("/springmvc")
 @Controller
@@ -137,6 +144,37 @@ public class SpringMVCTest {
 	@RequestMapping(value = "/testRequestHeader")
 	public String testRequestHeader(@RequestHeader(value = "Accept-Language") String al) {
 		System.out.println("testRequestHeader，Accept-Language："+ al);
+		return SUCCESS;
+	}
+	
+	/**
+	 * 了解：
+	 * @CookieValue：映射一个cookie值。属性同@RequestParam
+	 * @param jsessionId
+	 * @return
+	 */
+	@RequestMapping(value = "/testCookieValue")
+	public String testCookieValue(@CookieValue(value = "JSESSIONID") String jsessionId) {
+		System.out.println("testCookieValue：" + jsessionId);
+		return SUCCESS;
+	}
+	
+	/**
+	 * springMVC会按请求参数名和POJO属性名自动匹配，自动为该对象填充属性值。支持级联属性。
+	 * 如：dept.deptId, dept.address.tel等
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/testPojo", method = RequestMethod.POST)
+	public String testPojo(User user) {
+		System.out.println("testPojo:" + user);
+		return SUCCESS;
+		
+	}
+	
+	@RequestMapping(value = "testServletAPI")
+	public String testServletAPI(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("testServletAPI: " + request + "," + response);
 		return SUCCESS;
 	}
 }
