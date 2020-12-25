@@ -19,6 +19,9 @@ public class Address {
 	public String toString() {
 		return "Address [city=" + city + ", province=" + province + "]";
 	}
-	
-	
+	public Address(String city, String province) {
+		super();
+		this.city = city;
+		this.province = province;
+	}
 }

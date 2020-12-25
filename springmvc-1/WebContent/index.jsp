@@ -7,6 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form action="springmvc/testModeAttribute" method="post">
+		<input type="hidden" name="id" value="1">
+		username: <input type="text" name="username" value="zs"/><br>
+		email: <input type="text" name="email" value="123@123.com"/><br>
+		age: <input type="text" name="age" value="20"/><br>
+		<input type="submit" value="submmit(testModeAttribute)" />
+	</form>
+	<br>
+
+	<a href="springmvc/testSessionAttribute">testSessionAttribute</a> <br/><br/>
+	
+	<a href="springmvc/testMap">testMap</a> <br/><br/>
+	
+	<a href="springmvc/testModeAndView">testModeAndView</a> <br/><br/>
+	
 	<a href="springmvc/testServletAPI">testServletAPI</a> <br/><br/>
 
 	<form action="springmvc/testPojo" method="post">
