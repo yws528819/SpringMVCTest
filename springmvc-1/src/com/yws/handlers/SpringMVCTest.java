@@ -268,11 +268,29 @@ public class SpringMVCTest {
 	
 	/**
 	 * 运行流程：
-	 * 1.执行@ModelAttribute 注解修饰的方法：从数据库中取出对象，把对象放入到了Map中。key为user
+	 * 1.执行 @ModelAttribute 注解修饰的方法：从数据库中取出对象，把对象放入到了Map中。key为user
 	 * 2.SpringMVC从map中取出User对象，并把表单的请求参数赋值给User对象对应的属性
 	 * 3.SpringMVC把上述对象传入目标方法的参数
 	 * 
-	 * 注意：在@ModelAttribute修饰的方法中，放入到map时的键需要和目标方法的入参类型的第一个字母小写的字符串一致。
+	 * 注意：在 @ModelAttribute 修饰的方法中，放入到map时的键需要和目标方法的入参类型的第一个字母小写的字符串一致。
+	 * 
+	 * 源代码分析的流程：
+	 * 1.调用 @ModelAttribute 注解修饰的方法。实际上把 @ModelAttribute 方法中Map中的数据放在了implicitModel中。
+	 * 2.解析请求处理器的目标参数，实际上该目标参数来自于WebDataBinder对象的target属性
+	 * 	1）创建WebDataBinder对象：
+	 * 		①.确定objectName属性：若传入的attrName属性值为“”，则objectName为类名第一个字母小写。
+	 * 		*注意：attrName 如目标方法的Pojo属性使用了 @ModelAttribute 来修饰，则attrName值即为  @ModelAttribute 的value属性值
+	 * 		②.确定target属性
+	 * 			>在implicitModel中查找attrName对应的属性值。若存在，ok
+	 * 			>*若不存在：则验证当前Handler是否使用了 @SessionAttributes 进行修饰，
+	 * 						若使用了，则尝试从Session中获取attrName所对应的属性值。
+	 * 						若session中没有对应的属性值，则抛出了异常。
+	 * 			>若Handler 没有使用  @SessionAttributes 进行修饰，或 @SessionAttributes 中没有使用value值指定的key 和  attrName相匹配，
+	 * 				则通过反射创建POJO对象
+	 * 	2）SpringMVC把表单的请求参数赋值给了WebDataBinder的target对象的属性。
+	 * 	3）*SpringMVC会把WebDataBinder的attrName和target给到implicitModel。近而传到request域对象中。
+	 * 	4）把WebDataBinder的target作为参数传递给目标方法的入参。
+	 * 					
 	 * @param user
 	 * @return
 	 */
