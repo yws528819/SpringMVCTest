@@ -329,4 +329,11 @@ public class SpringMVCTest {
 		System.out.println("testView");
 		return "helloView";
 	}
+	
+	
+	@RequestMapping(value = "/testRedirect")
+	public String testRedirect() {
+		System.out.println("testRedirect");
+		return "redirect:/index.jsp";
+	}
 }
