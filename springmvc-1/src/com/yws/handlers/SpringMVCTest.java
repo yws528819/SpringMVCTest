@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yws.enties.Address;
 import com.yws.enties.User;
 
-//@SessionAttributes(value = {"user"}, types = {String.class})
+@SessionAttributes(value = {"user"}, types = {String.class})
 @RequestMapping("/springmvc")
 @Controller
 public class SpringMVCTest {
@@ -252,7 +252,10 @@ public class SpringMVCTest {
 	}
 	
 	/**
-	 * 有@ModelAttribute标记的方法，会在每个目标方法执行之前被springMVC调用！
+	 * 1.有 @ModelAttribute 标记的方法，会在每个目标方法执行之前被springMVC调用！
+	 * 2. @ModelAttribute 注解也可以来修饰目标方法POJO类型的入参，其value属性值有如下的作用： 
+	 * 		1）SpringMVC会使用value属性值在implicitModel中查找对应的对象，若存在则会直接传入到目标方法的入参中。
+	 * 		2）SpringMVC会以value属性值为key，POJO类型的对象为value，存入到request中。
 	 * @param id
 	 * @param map
 	 */
@@ -273,6 +276,20 @@ public class SpringMVCTest {
 	 * 3.SpringMVC把上述对象传入目标方法的参数
 	 * 
 	 * 注意：在 @ModelAttribute 修饰的方法中，放入到map时的键需要和目标方法的入参类型的第一个字母小写的字符串一致。
+	 * 
+	 * SpringMVC 确定目标方法POJO类型入参的过程
+	 * 1.确定一个key：
+	 * 		1）如果目标方法的POJO类型的参数没有使用 @ModelAttribute 作为修饰，则key为POJO类名的第一个字母小写 
+	 * 		2）若使用了 @ModelAttribute 类修饰，则key为  @ModelAttribute 注解的value属性值。
+	 * 2.在implicitModel中查找key对应的对象，若存在，则作为入参传入
+	 * 		1）若在 @ModelAttribute 标记点方法中在Map中保存过，且key和1确定的key一致，则会获取到。
+	 * 3.若implicitModel不存在key对应的对象，则检查当前Handler是否使用 @SessionAttributes 注解修饰，
+	 * 		若使用了该注解，且 @SessionAttributes 注解的value属性值包含了key，则会从HttpSession中来获取key所对应的value值：
+	 * 			若存在则直接传入目标方法的入参中。
+	 * 			若不存在则将抛出异常。（@SessionAttributes 的value值包含了1的key的情况 ）
+	 * 4.若没有标识  @SessionAttributes 或者  @SessionAttributes 注解的value值中不包含key，
+	 * 		则会通过反射来创建POJO类型的参数，传入为目标方法的参数
+	 * 5，SpringMVC会把key 和POJO类型的对象保存到implicitModel中，进而保存到request中。
 	 * 
 	 * 源代码分析的流程：
 	 * 1.调用 @ModelAttribute 注解修饰的方法。实际上把 @ModelAttribute 方法中Map中的数据放在了implicitModel中。
@@ -298,5 +315,18 @@ public class SpringMVCTest {
 	public String testModeAttribute(User user) {
 		System.out.println("testModeAttribute:" + user);
 		return SUCCESS;
+	}
+	
+	
+	@RequestMapping(value = "/testViewAndViewResolver")
+	public String testViewAndViewResolver() {
+		System.out.println("testViewAndViewResolver");
+		return SUCCESS;
+	}
+	
+	@RequestMapping(value = "/testView")
+	public String testView() {
+		System.out.println("testView");
+		return "helloView";
 	}
 }
