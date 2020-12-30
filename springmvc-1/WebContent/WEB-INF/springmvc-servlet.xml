@@ -33,4 +33,14 @@
 	
 	<!-- 在实际开发中通常都需要配置mvc:annotation-driven标签 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- 
+		default-servlet-handler将在SpringMVC上下文定义一个DefaultServletHttpRequestHandler，
+		它会对进入DispatcherServlet的请求进行筛查，如果是发现没有经过映射的请求，就将该请求交由Web应用服务器默认的Servlet处理。
+		如果不是静态资源的请求，才由DispatcherServlet继续处理
+		
+		一般WEB应用服务器默认的Servlet的名称都是default。
+		若所使用的WEB应用服务器的默认Servlet名称不是default，则需要通过default-servlet-name 属性显示指定
+	 -->	
+	<mvc:default-servlet-handler />
 </beans>
