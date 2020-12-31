@@ -3,9 +3,11 @@ package com.yws.crud.handlers;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +44,7 @@ public class EmployeeHandler {
 	}
 	
 	@RequestMapping(value = "/emp", method = RequestMethod.POST)
-	public String save(Employee employee, BindingResult result) {
+	public String save(@Valid Employee employee, Errors result, Map<String, Object> map) {
 		System.out.println(employee);
 		
 		if (result.getErrorCount() > 0) {
@@ -50,6 +52,10 @@ public class EmployeeHandler {
 			result.getFieldErrors().stream().forEach( e -> {
 				System.out.println(e.getField() + ":" + e.getDefaultMessage());
 			});
+			
+			//若验证出错，则转向定制的页面
+			map.put("departments", DepartmentDao.getDepartments());
+			return "input";
 		}
 		
 		employeeDao.save(employee);
