@@ -32,7 +32,8 @@
 	<mvc:view-controller path="/success" view-name="success"/>
 	
 	<!-- 在实际开发中通常都需要配置mvc:annotation-driven标签 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+	<!-- <mvc:annotation-driven></mvc:annotation-driven> -->
 	
 	<!-- 
 		default-servlet-handler将在SpringMVC上下文定义一个DefaultServletHttpRequestHandler，
@@ -43,4 +44,15 @@
 		若所使用的WEB应用服务器的默认Servlet名称不是default，则需要通过default-servlet-name 属性显示指定
 	 -->	
 	<mvc:default-servlet-handler />
+	
+	<!-- 配置ConversionService -->
+	<!-- <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"> -->
+	<!-- FormattingConversionServiceFactoryBean 既可以用自定义类型转换，又可以用自带的格式转换、校验 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"> 
+		<property name="converters">
+			<set>
+				<ref bean="employeeConverter"/>
+			</set>
+		</property>
+	</bean>
 </beans>

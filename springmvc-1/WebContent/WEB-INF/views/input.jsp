@@ -15,6 +15,7 @@
 	<form action="testConversionServiceConverer" method="post">
 		<!-- lastName-email-gender-department.id 例如：GG-gg@133.com-0-106 -->
 		Employee: <input type="text" name="employee">
+		<input type="submit" value="Submit">
 	</form>
 	<br><br>
 
@@ -54,7 +55,9 @@
 	 		2.数据类型格式化
 	 		3.数据校验
 	 	-->	
-	 	birth: <form:input path="birth"/> <br>	
+	 	birth: <form:input path="birth"/> <br>
+	 	
+	 	salary: <form:input path="salary"/> <br>	
 	 		
 	 	<input type="submit" value="Submit">
 	 </form:form>

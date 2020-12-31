@@ -2,6 +2,9 @@ package com.yws.crud.entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 public class Employee {
 
 	private Integer id;
@@ -13,8 +16,10 @@ public class Employee {
 	
 	private Department department;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
+	@NumberFormat(pattern = "#,###,###.##")
 	private Float salary;
 
 	public Integer getId() {

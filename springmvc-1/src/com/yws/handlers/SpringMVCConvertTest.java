@@ -18,6 +18,6 @@ public class SpringMVCConvertTest {
 	public String testConversionServiceConverer(Employee employee) {
 		System.out.println("save:" + employee);
 		employeeDao.save(employee);
-		return "emps";
+		return "redirect:/emps";
 	}
 }
