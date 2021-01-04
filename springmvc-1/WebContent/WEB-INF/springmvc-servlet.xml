@@ -30,6 +30,8 @@
 	
 	<!-- 配置直接转发的页面 -->
 	<mvc:view-controller path="/success" view-name="success"/>
+	<!-- <mvc:view-controller path="/i18n" view-name="i18n"/> -->
+	<mvc:view-controller path="/i18n2" view-name="i18n2"/>
 	
 	<!-- 在实际开发中通常都需要配置mvc:annotation-driven标签 -->
 	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
@@ -55,5 +57,14 @@
 			</set>
 		</property>
 	</bean>
+	
+	
+	<!-- 配置SessionLocaleResolver -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+	
+	<!-- 配置LocaleChangeInterceptor -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+	</mvc:interceptors>
 	
 </beans>
