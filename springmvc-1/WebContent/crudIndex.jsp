@@ -52,5 +52,12 @@
 	-->
 	<a href="i18n">i18n PAGE</a><br><br>
 	
+	<h4>TestUpload</h4>
+	<form action="testUpload" method="post" enctype="multipart/form-data">
+		File: <input type="file" name="file" /><br>
+		Desc: <input type="text" name="desc"/><br>
+		<input type="submit" value="Submit"/>
+	</form>
+	<br>
 </body>
 </html>

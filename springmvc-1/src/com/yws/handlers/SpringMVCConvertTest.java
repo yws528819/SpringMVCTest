@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yws.crud.dao.EmployeeDao;
 import com.yws.crud.entities.Employee;
@@ -86,5 +88,14 @@ public class SpringMVCConvertTest {
 		String message = messageSource.getMessage("i18n.username", null, locale);
 		System.out.println(message);
 		return "i18n";
+	}
+	
+	
+	@RequestMapping(value = "testUpload", method = RequestMethod.POST)
+	public String testFileUpload(@RequestParam("file") MultipartFile multipartFile, @RequestParam("desc") String desc) throws Exception{
+		System.out.println("desc:" + desc);
+		System.out.println("originalFilename:" + multipartFile.getOriginalFilename());
+		System.out.println("inputStream:" + multipartFile.getInputStream());
+		return "success";
 	}
 }
