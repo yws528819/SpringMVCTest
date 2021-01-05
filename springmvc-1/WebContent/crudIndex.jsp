@@ -60,6 +60,7 @@
 	</form>
 	<br>
 	
-	<a href="testExceptionHandlerExceptionResolver?i=5">testExceptionHandlerExceptionResolver</a><br><br>
+	<a href="testExceptionHandlerExceptionResolver?i=5">Test ExceptionHandlerExceptionResolver</a><br><br>
+	<a href="testResponseStatusExceptionResolver?i=5">Test ResponseStatusExceptionResolver</a><br><br>
 </body>
 </html>
