@@ -146,4 +146,17 @@ public class SpringMVCConvertTest {
 		System.out.println("testResponseStatusExceptionResolver...");
 		return "success";
 	}
+	
+	@RequestMapping(value = "testDefaultHandlerExceptionResolver", method = RequestMethod.POST)
+	public String testDefaultHandlerExceptionResolver() {
+		return "success";
+	}
+	
+	@RequestMapping(value = "testSimpleMappingExceptionResolver")
+	public String testSimpleMappingExceptionResolver(@RequestParam("i") int i) {
+		String[] vals = new String[10];
+		System.out.println(vals[i]);
+		return "success";
+	}
+	
 }
