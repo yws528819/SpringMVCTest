@@ -17,18 +17,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
-
-	<!-- 配置 org.springframework.web.filter.HiddenHttpMethodFilter：可以把Post请求转化为Delete 或 Put请求 -->
-	<filter>
-		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 	<!-- 配置DispatchServlet -->	
 	<servlet>
 		<servlet-name>springmvc</servlet-name>

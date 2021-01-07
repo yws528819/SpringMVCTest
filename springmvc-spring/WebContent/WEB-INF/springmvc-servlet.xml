@@ -25,6 +25,12 @@
 		2.使用context:include-filter 和  context:exclude-filter子节点来规定只能扫描的注解
 	 -->  
 	  
+	  
+	 <!-- 
+	 	SpringMVC的IOC容器中的bean可以来引用Spring IOC容器中的bean.
+	 	反过来呢？反之则不行，Spring IOC容器中的bean却不能应用SpringMVC IOC容器中的bean
+	  -->
+	  
 
 	<!-- 配置自定义扫描的包  -->
 	<context:component-scan base-package="com.yws" use-default-filters="false">
