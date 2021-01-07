@@ -7,6 +7,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
+
+	<!--
+		需要进行Spring整合SpringMVC吗?
+		还是否需要加入Spring的IOC容器？
+		是否需要在web.xml文件中配置启动Spring IOC容器的ContextLoaderListener?
+		
+		1.需要：通常情况下，类似于数据源，事务，整合其他框架都是放在Spring的配置文件中（而不是放在SpringMVC的配置文件中）。
+		实际上放入Spring配置文件对应的IOC容器中的还有Service和Dao。
+		2.不需要：	都放在SpringMVC的配置文件中，也可以分多个Spring配置文件，然后使用import节点导入其他的配置文件
+	  -->
+
 	<!-- 配置自定义扫描的包  -->
 	<context:component-scan base-package="com.yws"></context:component-scan>
 	
